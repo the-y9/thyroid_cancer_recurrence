@@ -1,0 +1,8 @@
+ipython
+pandas
+numpy
+seaborn
+matplotlib
+mlflow
+scikit-learn
+fastapi[standard]

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thyroid Cancer Recurrence Predictor</title>
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --background-color: #f0f4f8;
+      --form-background: #ffffff;
+      --text-color: #1f2937;
+      --input-border: #d1d5db;
+      --error-color: #ef4444;
+      --radius: 10px;
+      --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-family);
+      max-width: 85%;
+      margin: 1rem auto;
+      padding: 2rem;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 2.25rem;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+    }
+
+    form {
+      background: var(--form-background);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+      transition: box-shadow 0.3s ease;
+    }
+
+    form:hover {
+      box-shadow: 0 12px 36px rgba(59, 130, 246, 0.25);
+    }
+
+    label {
+      display: block;
+      margin-top: 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-top: 0.5rem;
+      border: 1.5px solid var(--input-border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-color);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline-offset: 2px;
+    }
+
+    input {
+        width: 90%;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      outline: none;
+    }
+
+    button {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.125rem;
+      font-weight: 700;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #2563eb;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-weight: 700;
+      font-size: 1.375rem;
+      text-align: center;
+      color: var(--text-color);
+    }
+
+    .error {
+      color: var(--error-color);
+      font-weight: 600;
+    }
+
+    .row-3 {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .row-3 > div {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .row-3 label {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thyroid Cancer Recurrence Predictor</h1>
+  <form id="predictForm">
+
+    <div class="row-3">
+      <div>
+        <label for="Age">Age</label>
+        <input type="number" id="Age" name="Age" required min="0" max="120" />
+      </div>
+      <div>
+        <label for="Gender">Gender</label>
+        <select id="Gender" name="Gender" required>
+          <option value="">Select</option>
+          <option value="F">F</option>
+          <option value="M">M</option>
+        </select>
+      </div>
+      <div>
+        <label for="Smoking">Smoking</label>
+        <select id="Smoking" name="Smoking" required>
+          <option value="">Select</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-3">
+      <div>
+        <label for="HxSmoking">Hx Smoking</label>
+        <select id="HxSmoking" name="Hx Smoking" required>
+          <option value="">Select</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+      <div>
+        <label for="HxRadiotherapy">Hx Radiotherapy</label>
+        <select id="HxRadiotherapy" name="Hx Radiotherapy" required>
+          <option value="">Select</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+      <div>
+        <label for="Thyroid_Function">Thyroid Function</label>
+        <select id="Thyroid_Function" name="Thyroid Function" required>
+          <option value="">Select</option>
+          <option value="Euthyroid">Euthyroid</option>
+          <option value="Clinical Hyperthyroidism">Clinical Hyperthyroidism</option>
+          <option value="Subclinical Hypothyroidism">Subclinical Hypothyroidism</option>
+          <option value="Clinical Hypothyroidism">Clinical Hypothyroidism</option>
+          <option value="Subclinical Hyperthyroidism">Subclinical Hyperthyroidism</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-3">
+      <div>
+        <label for="Physical_Examination">Physical Examination</label>
+        <select id="Physical_Examination" name="Physical Examination" required>
+          <option value="">Select</option>
+          <option value="Multinodular goiter">Multinodular goiter</option>
+          <option value="Single nodular goiter-right">Single nodular goiter-right</option>
+          <option value="Single nodular goiter-left">Single nodular goiter-left</option>
+          <option value="Normal">Normal</option>
+          <option value="Diffuse goiter">Diffuse goiter</option>
+        </select>
+      </div>
+      <div>
+        <label for="Adenopathy">Adenopathy</label>
+        <select id="Adenopathy" name="Adenopathy" required>
+          <option value="">Select</option>
+          <option value="No">No</option>
+          <option value="Right">Right</option>
+          <option value="Bilateral">Bilateral</option>
+          <option value="Left">Left</option>
+          <option value="Extensive">Extensive</option>
+          <option value="Posterior">Posterior</option>
+        </select>
+      </div>
+      <div>
+        <label for="Pathology">Pathology</label>
+        <select id="Pathology" name="Pathology" required>
+          <option value="">Select</option>
+          <option value="Papillary">Papillary</option>
+          <option value="Micropapillary">Micropapillary</option>
+          <option value="Follicular">Follicular</option>
+          <option value="Hurthel cell">Hurthel cell</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-3">
+      <div>
+        <label for="Focality">Focality</label>
+        <select id="Focality" name="Focality" required>
+          <option value="">Select</option>
+          <option value="Uni-Focal">Uni-Focal</option>
+          <option value="Multi-Focal">Multi-Focal</option>
+        </select>
+      </div>
+      <div>
+        <label for="Risk">Risk</label>
+        <select id="Risk" name="Risk" required>
+          <option value="">Select</option>
+          <option value="Low">Low</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+      <div>
+        <label for="T">T</label>
+        <select id="T" name="T" required>
+          <option value="">Select</option>
+          <option value="T1a">T1a</option>
+          <option value="T1b">T1b</option>
+          <option value="T2">T2</option>
+          <option value="T3a">T3a</option>
+          <option value="T3b">T3b</option>
+          <option value="T4a">T4a</option>
+          <option value="T4b">T4b</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-3">
+      <div>
+        <label for="N">N</label>
+        <select id="N" name="N" required>
+          <option value="">Select</option>
+          <option value="N0">N0</option>
+          <option value="N1a">N1a</option>
+          <option value="N1b">N1b</option>
+        </select>
+      </div>
+      <div>
+        <label for="M">M</label>
+        <select id="M" name="M" required>
+          <option value="">Select</option>
+          <option value="M0">M0</option>
+          <option value="M1">M1</option>
+        </select>
+      </div>
+      <div>
+        <label for="Stage">Stage</label>
+        <select id="Stage" name="Stage" required>
+          <option value="">Select</option>
+          <option value="I">I</option>
+          <option value="II">II</option>
+          <option value="III">III</option>
+          <option value="IVA">IVA</option>
+          <option value="IVB">IVB</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-3">
+      <div>
+        <label for="Response">Response</label>
+        <select id="Response" name="Response" required>
+          <option value="">Select</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Structural Incomplete">Structural Incomplete</option>
+          <option value="Indeterminate">Indeterminate</option>
+          <option value="Biochemical Incomplete">Biochemical Incomplete</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit">Predict</button>
+      </div>
+      <div>
+        <div class="result" id="result"></div>
+      </div>
+    </div>
+
+  </form>
+
+
+  <script>
+    const form = document.getElementById('predictForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      resultDiv.textContent = '';
+      const formData = new FormData(form);
+
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await response.json();
+
+        if (json.prediction) {
+          resultDiv.textContent = `Recurrence Probability: ${json.probability || ''} \n Recurrence Prediction: ${json.prediction}`;
+
+          resultDiv.className = 'result';
+        } else if (json.error) {
+          resultDiv.textContent = `Error: ${json.error}`;
+          resultDiv.className = 'result error';
+        } else {
+          resultDiv.textContent = 'Unexpected response from server.';
+          resultDiv.className = 'result error';
+        }
+      } catch (err) {
+        resultDiv.textContent = 'Failed to fetch prediction. Please try again later.';
+        resultDiv.className = 'result error';
+      }
+    });
+  </script>
+</body>
+</html>
