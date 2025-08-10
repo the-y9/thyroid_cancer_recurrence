@@ -6,3 +6,4 @@ matplotlib
 mlflow
 scikit-learn
 fastapi[standard]
+ydata-profiling
