@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 import pandas as pd
@@ -9,10 +10,11 @@ model = load("artifacts/model.joblib")
 
 # Define the FastAPI app
 app = FastAPI(title="Thyroid Cancer Recurrence Predictor")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
-@app.get("/")
-def get_root():
-    return FileResponse("index.html")
+# @app.get("/")
+# def get_root():
+#     return FileResponse("static/index.html")
 
 
 # Define the input schema using Pydantic
