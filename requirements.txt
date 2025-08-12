@@ -8,3 +8,4 @@ scikit-learn
 fastapi[standard]
 ydata-profiling
 plotly
+shap
