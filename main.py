@@ -10,11 +10,11 @@ model = load("artifacts/model.joblib")
 
 # Define the FastAPI app
 app = FastAPI(title="Thyroid Cancer Recurrence Predictor")
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
-# @app.get("/")
-# def get_root():
-#     return FileResponse("static/index.html")
+@app.get("/")
+def get_root():
+    return FileResponse("static/index.html")
 
 
 # Define the input schema using Pydantic
@@ -73,6 +73,6 @@ def predict(data: PatientData):
 
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", reload=True)
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run("main:app", host="0.0.0.0", reload=True)

@@ -130,7 +130,7 @@ Used **train-test split** and **cross-validation**:
 | **Visualization**       | matplotlib, seaborn, plotly     |
 | **EDA Automation**      | ydata-profiling                 |
 | **Machine Learning**    | scikit-learn, xgboost, lightgbm |
-| **Explainability**      | shap, lime                      |
+| **Explainability**      | shap                            |
 | **Model Serving**       | FastAPI, Pydantic               |
 | **Persistence**         | joblib                          |
 | **Deployment**          | Docker, uvicorn                 |
